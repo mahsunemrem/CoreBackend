@@ -22,4 +22,8 @@
     <ProjectReference Include="..\Business\Business.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Theme\assets\plugins\general\ion-rangeslider\img\" />
+  </ItemGroup>
+
 </Project>
