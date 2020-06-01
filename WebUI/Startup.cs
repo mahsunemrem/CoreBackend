@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +27,12 @@ namespace WebUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            // tek katmanda veritabaný baðlantýsý
+        //    services.AddDbContext<SchoolContext>(options =>
+        //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+
             // services.AddControllersWithViews(); hazýr gelmiþti
             services.AddControllersWithViews().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
 
@@ -79,6 +86,62 @@ namespace WebUI
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+
+            //app.Use(async (context, next) =>
+            //{
+            //    if (context.Request.Path == "/products")
+            //    {
+            //        var value = context.Request.Query["category"].ToString();
+            //        if (int.TryParse(value, out int intValue))
+            //        {
+            //            await context.Response.WriteAsync($"category sayýsal bir ifade : {intValue}");
+            //        }
+
+            //        else
+            //        {
+            //            context.Items["value"] = value; // aldýðýmýz valueyi yine contexte yani kuyruða ekleyip yola devam et dedik 
+
+            //            await next();  // BÝR SONRAKÝ MÝDDLEWARE GEÇ DEMEK
+
+            //        }
+
+            //    }
+
+
+            //    else
+            //    {
+            //        await next();
+            //    }
+            //});
+
+            //MÝDDLEWARE YAZMADAN UFAK VE KOLAY BÝR ÞEKÝLDE KÜÇÜK MÝDDLEWAREW DE DENÝLEBÝLÝR.
+            // YAÞAM DÖNGÜSÜNE DOKUNUP GELEN VERÝLERLE OYNAYIP BÝR SONRAKÝ MÝDDLEWARE GÖNDERDÝK
+
+            //app.Use(async (context, next) =>
+            //{
+            //    if (context.Items["value"] != null)
+            //    {
+            //        var value = context.Items["value"].ToString();
+
+            //        context.Items["values"] = value.ToLower();
+
+            //    }
+
+            //    await next();
+            //});
+
+            //app.Use(async (context, next) =>
+            //{
+            //    if (context.Items["value"] != null)
+            //    {
+
+            //        await context.Response.WriteAsync($"category : {context.Items["value"].ToString()}");
+            //    }
+
+
+            //});
+
+
             app.UseSession();
 
             app.UseRouting();
@@ -91,6 +154,8 @@ namespace WebUI
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            // seed data middleware eklemen lazým ( db inithalizer yani )
         }
     }
 }

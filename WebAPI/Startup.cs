@@ -69,7 +69,7 @@ namespace WebAPI
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.ConfigureCustomExceptionMiddleware();
+            app.ConfigureCustomExceptionMiddleware();
             app.UseCors(builder => builder.WithOrigins("http://localhost:3000").AllowAnyHeader()); // gelen put post delete gibi her isteðe izin ver bu link den ! www.facebook.com gibi adresini vereceksin
 
             app.UseHttpsRedirection();
